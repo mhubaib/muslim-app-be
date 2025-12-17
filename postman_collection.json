@@ -1,0 +1,308 @@
+{
+  "info": {
+    "name": "Muslim App API",
+    "description": "API collection for Muslim App Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "muslim-app"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "{{API_KEY}}",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "API_KEY",
+      "value": "your_public_api_key_here",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Root",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/",
+              "host": ["{{BASE_URL}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/health",
+              "host": ["{{BASE_URL}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quran",
+      "item": [
+        {
+          "name": "Get All Surahs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/quran/surah",
+              "host": ["{{BASE_URL}}"],
+              "path": ["quran", "surah"]
+            }
+          }
+        },
+        {
+          "name": "Get Surah by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/quran/surah/1",
+              "host": ["{{BASE_URL}}"],
+              "path": ["quran", "surah", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Specific Ayah",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/quran/ayah/1/1",
+              "host": ["{{BASE_URL}}"],
+              "path": ["quran", "ayah", "1", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Prayer Times",
+      "item": [
+        {
+          "name": "Get Today Prayer Times",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/prayer/today?lat=-6.2088&lon=106.8456",
+              "host": ["{{BASE_URL}}"],
+              "path": ["prayer", "today"],
+              "query": [
+                {
+                  "key": "lat",
+                  "value": "-6.2088",
+                  "description": "Jakarta latitude"
+                },
+                {
+                  "key": "lon",
+                  "value": "106.8456",
+                  "description": "Jakarta longitude"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Get All Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/events",
+              "host": ["{{BASE_URL}}"],
+              "path": ["events"]
+            }
+          }
+        },
+        {
+          "name": "Get Upcoming Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/events/upcoming",
+              "host": ["{{BASE_URL}}"],
+              "path": ["events", "upcoming"]
+            }
+          }
+        },
+        {
+          "name": "Get Event by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/events/1",
+              "host": ["{{BASE_URL}}"],
+              "path": ["events", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Isra Mi'raj\",\n  \"description\": \"Peringatan Isra Mi'raj Nabi Muhammad SAW\",\n  \"dateHijri\": \"27 Rajab 1446\",\n  \"estimatedGregorian\": \"2025-01-27T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/events",
+              "host": ["{{BASE_URL}}"],
+              "path": ["events"]
+            }
+          }
+        },
+        {
+          "name": "Update Event",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Isra Mi'raj Updated\",\n  \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/events/1",
+              "host": ["{{BASE_URL}}"],
+              "path": ["events", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Event",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/events/1",
+              "host": ["{{BASE_URL}}"],
+              "path": ["events", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Send Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"AZAN\",\n  \"title\": \"Waktu Adzan Subuh\",\n  \"body\": \"Sudah masuk waktu Subuh\",\n  \"meta\": {\n    \"prayerName\": \"Fajr\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/notification/send",
+              "host": ["{{BASE_URL}}"],
+              "path": ["notification", "send"]
+            }
+          }
+        },
+        {
+          "name": "Schedule Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"EVENT_ISLAMIC\",\n  \"title\": \"Isra Mi'raj Besok\",\n  \"body\": \"Besok adalah hari Isra Mi'raj\",\n  \"scheduleAt\": \"2025-12-03T10:00:00Z\",\n  \"meta\": {\n    \"eventId\": 1\n  }\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/notification/schedule",
+              "host": ["{{BASE_URL}}"],
+              "path": ["notification", "schedule"]
+            }
+          }
+        },
+        {
+          "name": "Get Scheduled Notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/notification/scheduled",
+              "host": ["{{BASE_URL}}"],
+              "path": ["notification", "scheduled"]
+            }
+          }
+        },
+        {
+          "name": "Delete Scheduled Notification",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/notification/scheduled/1",
+              "host": ["{{BASE_URL}}"],
+              "path": ["notification", "scheduled", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

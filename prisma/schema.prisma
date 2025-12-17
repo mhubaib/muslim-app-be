@@ -1,0 +1,141 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model PrayerCache {
+  id          Int      @id @default(autoincrement())
+  date        DateTime @unique
+  fajr        String
+  dhuhr       String
+  asr         String
+  maghrib     String
+  isha        String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model DeviceToken {
+  id          Int      @id @default(autoincrement())
+  token       String   @unique
+  deviceId    String?
+  platform    String?  // 'android' or 'ios'
+  
+  // Location for prayer time notifications
+  latitude    Float?
+  longitude   Float?
+  timezone    String?
+  
+  // Notification preferences
+  enablePrayerNotifications Boolean @default(true)
+  enableEventNotifications  Boolean @default(true)
+  
+  // Prayer notification settings (minutes before prayer time)
+  notifyBeforePrayer Int @default(5)
+  
+  // Per-prayer preferences (which prayers to notify)
+  enabledPrayers Json? @default("{\"fajr\":true,\"dhuhr\":true,\"asr\":true,\"maghrib\":true,\"isha\":true}")
+  
+  lastActiveAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  notifications NotificationSchedule[]
+  
+  @@index([token])
+}
+
+model NotificationSchedule {
+  id          Int      @id @default(autoincrement())
+  type        NotificationType
+  title       String
+  body        String
+  scheduleAt  DateTime
+  meta        Json?
+  
+  // Optional: for device-specific notifications
+  deviceTokenId Int?
+  deviceToken   DeviceToken? @relation(fields: [deviceTokenId], references: [id], onDelete: Cascade)
+  
+  // For tracking sent status
+  sent        Boolean @default(false)
+  sentAt      DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([scheduleAt, sent])
+  @@index([deviceTokenId])
+}
+
+model IslamicEvent {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  dateHijri   String
+  estimatedGregorian DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum NotificationType {
+  AZAN
+  EVENT_ISLAMIC
+  CUSTOM
+}
+
+model Surah {
+  id           Int     @id
+  name         String
+  englishName  String?
+  numberOfAyahs Int
+  revelationType String?
+  ayahs        Ayah[]
+}
+
+model Ayah {
+  id       Int     @id @default(autoincrement())
+  numberInSurah Int
+  surahId  Int
+  page Int?
+  juz Int?
+  textArabic String
+  textLatin  String?
+  textTranslation String?
+
+  surah    Surah   @relation(fields: [surahId], references: [id])
+
+  @@index([surahId])
+}
+
+model LocationCache {
+  id          Int      @id @default(autoincrement())
+  lat         Float
+  lon         Float
+  address     String
+  city        String?
+  state       String?
+  country     String?
+  countryCode String?
+  postalCode  String?
+  displayName String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([lat, lon])
+  @@index([lat, lon])
+}
