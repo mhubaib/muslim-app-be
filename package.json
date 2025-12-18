@@ -21,21 +21,22 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/adapter-pg": "^7.0.1",
-    "@prisma/client": "^6.19.0",
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "^7.2.0",
+    "@tsconfig/node22": "^22.0.5",
+    "@types/node": "^25.0.3",
+    "@types/pg": "^8.16.0",
     "axios": "^1.13.2",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "firebase-admin": "^13.6.0",
     "node-cron": "^4.2.1",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "prisma": "^7.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
-    "@tsconfig/node22": "^22.0.2",
     "@types/express": "^5.0.3",
-    "@types/node": "^24.10.1",
-    "@types/pg": "^8.15.6",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
     "@typescript-eslint/parser": "^8.40.0",
     "eslint": "^9.33.0",
@@ -43,7 +44,6 @@
     "eslint-plugin-perfectionist": "^4.15.0",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
-    "prisma": "^6.19.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.40.0"

@@ -1,6 +1,16 @@
 import { PrismaClient } from '../generated/prisma/client.js';
+import { PrismaPg } from '@prisma/adapter-pg';
+import dotenv from 'dotenv';
 
-const prisma = new PrismaClient();
+dotenv.config();
+
+const connectionString = `${process.env.DATABASE_URL}`;
+const adapter = new PrismaPg({ connectionString });
+
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+  adapter,
+});
 
 async function main() {
   console.log('🌱 Seeding database...');
@@ -20,8 +30,8 @@ async function main() {
       estimatedGregorian: new Date('2025-09-16'),
     },
     {
-      name: "Isra Mi'raj",
-      description: "Peringatan perjalanan Isra Mi'raj Nabi Muhammad SAW",
+      name: 'Isra Mi\'raj',
+      description: 'Peringatan perjalanan Isra Mi\'raj Nabi Muhammad SAW',
       dateHijri: '27 Rajab 1447',
       estimatedGregorian: new Date('2026-01-27'),
     },
