@@ -7,8 +7,6 @@ import { PrayerService } from './modules/prayer/prayer.service.js';
 import { NotificationService } from './modules/notification/notification.service.js';
 import { PrayerNotificationService } from './modules/prayer/prayer-notification.service.js';
 import { DeviceTokenService } from './modules/device/device.service.js';
-import admin from './config/firebase.js';
-
 // Load environment variables
 dotenv.config();
 

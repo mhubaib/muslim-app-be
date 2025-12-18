@@ -26,7 +26,6 @@ import {
   updateDevicePreferences,
   getDeviceInfo,
   unregisterDevice,
-  testNotification,
 } from './modules/device/device.controller.js';
 
 import { reverseGeocode } from './modules/location/location.controller.js';

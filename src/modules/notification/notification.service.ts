@@ -1,6 +1,6 @@
-import admin from "../../config/firebase.js";
-import prisma from "../../config/database.js";
-import { NotificationType } from "../../generated/prisma/client.js";
+import admin from '../../config/firebase.js';
+import prisma from '../../config/database.js';
+import { NotificationType } from '../../generated/prisma/client.js';
 
 interface SendNotificationDto {
   type: NotificationType;
@@ -35,14 +35,14 @@ export class NotificationService {
       };
 
       const response = await admin.messaging().send(message);
-      console.log("Successfully sent message to topic:", data.type, response);
+      console.log('Successfully sent message to topic:', data.type, response);
 
       return {
         success: true,
         messageId: response,
       };
     } catch (error) {
-      console.error("Error sending notification:", error);
+      console.error('Error sending notification:', error);
       throw error;
     }
   }
@@ -59,14 +59,14 @@ export class NotificationService {
       };
 
       const response = await admin.messaging().send(message);
-      console.log("Successfully sent message to device:", token, response);
+      console.log('Successfully sent message to device:', token, response);
 
       return {
         success: true,
         messageId: response,
       };
     } catch (error) {
-      console.error("Error sending notification to device:", error);
+      console.error('Error sending notification to device:', error);
       throw error;
     }
   }
@@ -91,7 +91,7 @@ export class NotificationService {
         failureCount: response.failureCount,
       };
     } catch (error) {
-      console.error("Error sending notifications to devices:", error);
+      console.error('Error sending notifications to devices:', error);
       throw error;
     }
   }
@@ -108,10 +108,10 @@ export class NotificationService {
         },
       });
 
-      console.log("Notification scheduled:", notification.id);
+      console.log('Notification scheduled:', notification.id);
       return notification;
     } catch (error) {
-      console.error("Error scheduling notification:", error);
+      console.error('Error scheduling notification:', error);
       throw error;
     }
   }
@@ -124,12 +124,12 @@ export class NotificationService {
             gte: new Date(),
           },
         },
-        orderBy: { scheduleAt: "asc" },
+        orderBy: { scheduleAt: 'asc' },
       });
 
       return notifications;
     } catch (error) {
-      console.error("Error fetching scheduled notifications:", error);
+      console.error('Error fetching scheduled notifications:', error);
       throw error;
     }
   }
@@ -169,7 +169,7 @@ export class NotificationService {
 
       return pendingNotifications.length;
     } catch (error) {
-      console.error("Error processing pending notifications:", error);
+      console.error('Error processing pending notifications:', error);
       throw error;
     }
   }
@@ -180,10 +180,10 @@ export class NotificationService {
         where: { id },
       });
 
-      console.log("Scheduled notification deleted:", id);
+      console.log('Scheduled notification deleted:', id);
       return { success: true };
     } catch (error) {
-      console.error("Error deleting scheduled notification:", error);
+      console.error('Error deleting scheduled notification:', error);
       throw error;
     }
   }
